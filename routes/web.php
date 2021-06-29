@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('login', [AuthController::class,'indexLogin'])->name('login');
+Route::get('register', [AuthController::class,'indexRegister'])->name('register');
 
 Route::get('/admin', 'AdminController@index');
 Route::get('/superadmin', 'SuperAdminController@index');

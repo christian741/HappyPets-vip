@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 use App\Models\User;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,8 @@ class AuthController extends Controller
      */
     public function signUp(Request $request)
     {
-        /**Validate the data using validation rules
+        /**
+         * Validate the data using validation rules
          */
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -26,19 +28,22 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        /**Check the validation becomes fails or not
+        /**
+         * Check the validation becomes fails or not
          */
         if ($validator->fails()) {
-            /**Return error message
+            /**
+             * Return error message
              */
             return response()->json(['error' => $validator->errors()]);
         }
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+        $user->roles()->attach(Role::where('name', 'user')->first());
 
         return response()->json([
             'message' => 'Successfully created user!'
@@ -96,5 +101,13 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return response()->json($request->user());
+    }
+
+    public function indexLogin(Request $request){
+        return view('login');
+    }
+
+    public function indexRegister(Request $request){
+        return view('register');
     }
 }
