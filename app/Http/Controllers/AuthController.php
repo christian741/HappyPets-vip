@@ -22,32 +22,35 @@ class AuthController extends Controller
         /**
          * Validate the data using validation rules
          */
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string'
-        ]);
+        $rules = array(
+            'name' => ['required','string'],
+            'lastname' => ['required','string'],
+            'cellphone' => ['required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'email' => ['required','string','email','unique:users'],
+            'password' => ['required','string'],
+            'img_file' => ['mimes:jpeg,bmp,png']
+        );
+        $validator = Validator::make($request->all(),$rules);
 
         /**
          * Check the validation becomes fails or not
          */
         if ($validator->fails()) {
-            /**
-             * Return error message
-             */
-            return response()->json(['error' => $validator->errors()]);
+            return redirect('register')
+                        ->withErrors($validator);
         }
-
         $user = User::create([
             'name' => $request->name,
+            'lastname' => $request->lastname,
+            'cellphone' =>  $request->cellphone,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
         $user->roles()->attach(Role::where('name', 'user')->first());
 
-        return response()->json([
+        /*return response()->json([
             'message' => 'Successfully created user!'
-        ], 201);
+        ], 201);*/
     }
 
     /**
@@ -55,7 +58,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
             'remember_me' => 'boolean'
@@ -63,11 +66,11 @@ class AuthController extends Controller
 
         $credentials = request(['email', 'password']);
 
-        if (!Auth::attempt($credentials))
+        if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
-
+        }
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
 
@@ -103,11 +106,13 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
-    public function indexLogin(Request $request){
+    public function indexLogin(Request $request)
+    {
         return view('login');
     }
 
-    public function indexRegister(Request $request){
+    public function indexRegister(Request $request)
+    {
         return view('register');
     }
 }

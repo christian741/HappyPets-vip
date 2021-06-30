@@ -7,26 +7,27 @@
     <title>Happy Pets-@yield('title')</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="{!! asset('css\app.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css\Main\welcome.css') !!}">
 
 </head>
-<header>
-    
+<header class="header">
     @if (Route::has('login'))
-    <div class="">
-        @auth
-        <a href="{{ url('/home') }}" class="">Home</a>
-        @else
-        <a href="{{ route('login') }}" class="">Log in</a>
+        <div class="nav_welcome">
+                <img src="" alt="">
+            @auth
+                <a href="{{ url('/home') }}" class="">Home</a>
+            @else
+                <a href="{{ route('login') }}" class="">Log in</a>
 
-        @if (Route::has('register'))
-        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-        @endif
-        @endauth
-    </div>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                @endif
+            @endauth
+        </div>
     @endif
 
-    
+
 </header>
 
 <body>

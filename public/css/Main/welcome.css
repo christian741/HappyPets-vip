@@ -1,0 +1,21 @@
+
+.header{
+    display: grid;
+    width: 100%;
+    grid-area: 1/1/2/2;
+    margin: 0;
+}
+.nav_welcome{
+    background-color: cornflowerblue;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 80px;
+    grid-column-gap: 3rem;
+    width: 100%;
+}
+.nav_welcome a{
+    text-align: center;
+    text-decoration: none;
+    padding: 20px;
+    font-size: 20px;
+}

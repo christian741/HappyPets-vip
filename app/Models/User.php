@@ -42,10 +42,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /* MANY TO MANY */
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
+
+    public function pets()
+    {
+        return $this->belongsToMany(Pet::class)->withTimestamps();
+    }
+
+    
 
     public function authorizeRoles($roles)
     {
