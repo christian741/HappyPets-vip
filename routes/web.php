@@ -23,5 +23,16 @@ Route::get('/', function () {
 Route::get('login', [AuthController::class,'indexLogin'])->name('login');
 Route::get('register', [AuthController::class,'indexRegister'])->name('register');
 
-Route::get('/admin', 'AdminController@index');
-Route::get('/superadmin', 'SuperAdminController@index');
+
+/**Route for login API */
+Route::post('login', [AuthController::class,'login'])->name('login.post');
+
+/**Route for register API */
+Route::post('register', [AuthController::class,'signUp'])->name('register.post');
+
+/**Route for details user API */
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', 'AdminController@index');
+    Route::get('/superadmin', 'SuperAdminController@index');
+    
+});

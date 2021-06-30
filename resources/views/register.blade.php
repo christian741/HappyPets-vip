@@ -7,7 +7,7 @@
 @section('content')
 
     <h3>Registrar Usuario</h3>
-    <form method="POST" action="api/register">
+    <form method="POST" action="{{ route('register.post') }}">
         @csrf
         
         <div class="row pt-3">

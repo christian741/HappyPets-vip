@@ -15,13 +15,4 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-/**Route for login API */
-Route::post('login', [AuthController::class,'login']);
 
-/**Route for register API */
-Route::post('register', [AuthController::class,'signUp']);
-
-/**Route for details user API */
-Route::middleware('auth:api')->group(function () {
-    Route::post('details', 'AuthController@user_info');
-});
