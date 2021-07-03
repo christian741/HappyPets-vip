@@ -15,6 +15,15 @@ class CreateSellsTable extends Migration
     {
         Schema::create('sells', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')
+            ->references('id')
+            ->on('products')
+            ->onDelete('cascade');
+            $table->string('observation')->nullable();
+            $table->integer('price');
+            $table->integer('quantity');
+            $table->boolean('debt');
             $table->timestamps();
         });
     }

@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
+        'cellphone',
         'email',
         'password',
+        'photo'
     ];
 
     /**
@@ -47,13 +50,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
-
+    
     public function pets()
     {
         return $this->belongsToMany(Pet::class)->withTimestamps();
     }
 
-    
 
     public function authorizeRoles($roles)
     {

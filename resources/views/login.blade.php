@@ -14,8 +14,16 @@
             </ul>
         </div>
     @endif
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
+
+
     <h3>Registro Usuarios</h3>
-    <form method="POST" action="api/login">
+    <form method="POST" action="{{ route('login.post') }}">
         @csrf
         <div class="row pt-3">
             <label for="email">Email:</label>

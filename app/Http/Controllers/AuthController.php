@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,21 +23,20 @@ class AuthController extends Controller
          * Validate the data using validation rules
          */
         $rules = array(
-            'name' => ['required','string'],
-            'lastname' => ['required','string'],
-            'cellphone' => ['required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-            'email' => ['required','string','email','unique:users'],
-            'password' => ['required','string'],
-            'img_file' => ['mimes:jpeg,bmp,png']
+            'name' => ['required', 'string'],
+            'lastname' => ['required', 'string'],
+            'cellphone' => ['required', 'regex:(^\d{10}$)'],
+            'email' => ['required', 'string', 'email', 'unique:users'],
+            'password' => ['required', 'string']
         );
-        $validator = Validator::make($request->all(),$rules);
+        $validator = Validator::make($request->all(), $rules);
 
         /**
          * Check the validation becomes fails or not
          */
         if ($validator->fails()) {
             return redirect('register')
-                        ->withErrors($validator);
+                ->withErrors($validator);
         }
         $user = User::create([
             'name' => $request->name,
@@ -47,7 +46,9 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
         $user->roles()->attach(Role::where('name', 'user')->first());
+    
 
+        return redirect('login')->with('message','Registro exitoso');
         /*return response()->json([
             'message' => 'Successfully created user!'
         ], 201);*/
@@ -67,23 +68,23 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!Auth::attempt($credentials)) {
-            return response()->json([
-                'message' => 'Unauthorized'
-            ], 401);
+            return redirect('register')
+                ->withErrors($validated);
         }
         $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
 
-        $token = $tokenResult->token;
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        $token->save();
 
-        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
-        ]);
+        if ($user->hasRole('admin')) {
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+            if ($request->remember_me)
+                $token->expires_at = Carbon::now()->addWeeks(1);
+            $token->save();
+            return redirect('/admin');
+        } else {
+            return redirect('login')
+                ->withErrors(['Usuario not found']);
+        }
     }
 
     /**
@@ -91,11 +92,13 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->user()->token()->revoke();
 
-        return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
+        $user = $request->user();
+        foreach ($user->tokens as $token) {
+            $token->revoke();
+        }
+        Auth::logout();
+        return redirect('/home');
     }
 
     /**

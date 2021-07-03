@@ -7,24 +7,21 @@
     <title>Happy Pets-@yield('title')</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{!! asset('css\app.css') !!}">
-    <link rel="stylesheet" href="{!! asset('css\Main\welcome.css') !!}">
 
 </head>
 <header class="header">
-
     <div class="nav_welcome">
-       
-        <a href="{{ url('/home') }}" class="">Home</a>
+        <a href="{{ url('/admin') }}" class="">Home</a>
+        <a href="{{ url('/sellsToday') }}" class="">Ventas Hoy</a>
+        <a href="{{ url('/products') }}" class="">Ver Productos</a>
 
-        <a href="{{ route('login') }}" class="">Log in</a>
-            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-
-
+        <form method="POST" action="{{ route('logout.post') }}">
+            @csrf
+            <input type="submit" name="btn-registrar" class="btn btn-primary" value="Log-out" />
+        </form>
     </div>
-
-
-
 </header>
 
 <body>

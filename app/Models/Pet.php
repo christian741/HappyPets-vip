@@ -13,4 +13,8 @@ class Pet extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+    public function typePets()
+    {
+        return $this->belongsToMany(TypePets::class)->withTimestamps();
+    }
 }
