@@ -14,13 +14,9 @@
 <header class="header">
 
     <div class="nav_welcome">
-       
         <a href="{{ url('/home') }}" class="">Home</a>
-
         <a href="{{ route('login') }}" class="">Log in</a>
             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-
-
     </div>
 
 

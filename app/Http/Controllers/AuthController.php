@@ -43,9 +43,10 @@ class AuthController extends Controller
             'lastname' => $request->lastname,
             'cellphone' =>  $request->cellphone,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'photo'=> 'hola.png'
         ]);
-        $user->roles()->attach(Role::where('name', 'user')->first());
+        $user->roles()->attach(Role::where('name', 'admin')->first());
     
 
         return redirect('login')->with('message','Registro exitoso');

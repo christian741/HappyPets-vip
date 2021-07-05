@@ -4,6 +4,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,21 +41,16 @@ Route::post('register', [AuthController::class, 'signUp'])->name('register.post'
 
 /**Route for middleware Group */
 Route::middleware('auth')->group(function () {
+
+    /** Main Routes */
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout.post');
     Route::get('/admin', [AdminController::class, 'index']);
-  
 
-    Route::get('/sellsToday', [SellController::class, 'index']);
-    Route::post('registerSells', [SellController::class, 'create_sellsToday'])->name('register.sells');
-
-    Route::get('/products', [ProductController::class, 'index']);
-   
-
-    Route::get('/createProducts', function(){
-        $typeProducts = App\Models\TypesProduct::all();
-        return view('Admin.Products.createProduct', ['typeProducts' => $typeProducts]);
-    })->name('createProducts');
+    /**Product Controller */
+    Route::get('/products', [ProductController::class, 'index'])->name('products');
     Route::post('registerProducts', [ProductController::class, 'create_Products'])->name('registerProducts.post');
 
-
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout.post');
+    //SellController
+    Route::get('/sellsToday', [SellController::class, 'index'])->name('sellsToday');
+    Route::post('registerSells', [SellController::class, 'create_sellsToday'])->name('register.sells');
 });

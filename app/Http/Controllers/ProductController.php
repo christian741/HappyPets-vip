@@ -15,20 +15,23 @@ class ProductController extends Controller
     {
         $this->middleware('auth');
     }
-     /**
+    /**
      * Cierre de sesión (anular el token)
      */
     public function index(Request $request)
     {
+        $name  = $request->get('name_product');
         $request->user()->authorizeRoles(['admin']);
-        $products = DB::table('products')->paginate(15);
-        return view('Admin.Products.paginationProducts',compact('products'));
+        $products = Product::orderBy('name', 'ASC')
+            ->name($name)
+            ->paginate(15);
+        return view('Admin.Products.paginationProducts', compact('products'));
     }
 
     public function create_Products(Request $request)
     {
-        $request->user()->authorizeRoles(['admin']);
-         /**
+        //$request->user()->authorizeRoles(['admin']);
+        /**
          * Validate the data using validation rules
          */
         $rules = array(
@@ -46,15 +49,15 @@ class ProductController extends Controller
 
         $product = Product::create([
             'name' => $request->name,
-            'description'=> $request->description,
+            'description' => $request->description,
             'email' => $request->email,
             'price' => $request->price,
             'quantity' =>  $request->quantity,
         ]);
-        $product->typesProduct()->attach(TypesProduct::where('id',$request->typeProducts)->first());
-    
+        $product->typesProduct()->attach(TypesProduct::where('id', $request->typeProducts)->first());
 
-        return redirect('createProducts')->with('message','Registro exitoso');
+
+        return redirect('createProducts')->with('message', 'Registro exitoso');
 
         return view('Admin.Sells.sellsToday');
     }
