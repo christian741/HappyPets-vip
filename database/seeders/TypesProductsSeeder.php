@@ -21,5 +21,6 @@ class TypesProductsSeeder extends Seeder
         $typeProduct->name = 'inventory';
         $typeProduct->description = 'Inventario';
         $typeProduct->save();
+
     }
 }

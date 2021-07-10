@@ -8,13 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class Pet extends Model
 {
     use HasFactory;
+    protected $table = 'pets';
+    protected $primaryKey = 'id';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'photo'
+    ];
     
+    public function scopeName($query, $name){
+        if($name){
+            return $query->orWhere('name','ILIKE',"%$name%");
+        }
+    }
     public function users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
     public function typePets()
     {
-        return $this->belongsToMany(TypePets::class)->withTimestamps();
+        return $this->belongsTo(TypePets::class)->withTimestamps();
     }
 }

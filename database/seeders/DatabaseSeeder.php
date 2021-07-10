@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTableSeeder::class);
         $this->call(TypesProductsSeeder::class);
-        $faker = Faker::create();
+       /* $faker = Faker::create();
     	foreach (range(1,20) as $index) {
             DB::table('products')->insert([
                 'name' => $faker->firstname,
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
                 'created_at'=>$now
             ]);
         }
-        //User::factory(10)->create();
+        //User::factory(10)->create();*/
         
     }
 }

@@ -16,6 +16,8 @@
         <a href="{{ url('/admin') }}" class="">Home</a>
         <a href="{{ url('/sellsToday') }}" class="">Ventas Hoy</a>
         <a href="{{ url('/products') }}" class="">Ver Productos</a>
+        <a href="{{ url('/createProducts') }}" class="">Crear Productos</a>
+
 
         <form method="POST" action="{{ route('logout.post') }}">
             @csrf

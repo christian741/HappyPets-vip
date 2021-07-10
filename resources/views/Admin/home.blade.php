@@ -9,6 +9,6 @@
   {{auth()->user()->name}}
   {{auth()->user()->lastname}}
   {{auth()->user()->email}}
-  {{auth()->user()->photo}}
+  <img src="{{ asset('images/users/'.auth()->user()->photo) }}" alt="">
 
 @endsection

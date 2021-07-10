@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 //Data Base
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
-use App\Models\TypesProduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -39,6 +39,7 @@ class ProductController extends Controller
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'numeric'],
             'typeProducts' => ['required'],
+            'img_file' => ['required','mimes:jpeg,jpg,png,gif']
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -46,19 +47,30 @@ class ProductController extends Controller
             return redirect('Admin.Products.createProduct')
                 ->withErrors($validator);
         }
-
+        $nameImage = "";
+        if($request->img_file!=null){
+            $image_resize = Image::make($request->img_file->getRealPath());
+            $image_resize->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $image_resize->orientate();
+            $nameImage = time() . "." . $request->img_file->getClientOriginalName();
+            $image_resize->save(public_path('images/products/' . $nameImage));
+        }
+        $total_price= $request->price * $request->quantity;
+        $price_sell = ($request->price*0.2)+($request->price);
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'email' => $request->email,
             'price' => $request->price,
             'quantity' =>  $request->quantity,
+            'total_price'=>  $total_price,
+            'price_sell'=>$price_sell,
+            'photo'=>'sinfoto',
+            'types_products_id'=> $request->typeProducts
         ]);
-        $product->typesProduct()->attach(TypesProduct::where('id', $request->typeProducts)->first());
-
-
-        return redirect('createProducts')->with('message', 'Registro exitoso');
-
-        return view('Admin.Sells.sellsToday');
+        return redirect('Admin.Products.createProduct')->with('message', 'Registro exitoso');
     }
 }

@@ -94,7 +94,7 @@
                             <td></td>
                         </tr>
                     @else
-                        {{ $i = 0 }}
+                        {{ $i = 1 }}
                         @foreach ($sells as $data)
                             <tr>
                                 <th scope="row">#{{ $i }}</th>
@@ -105,9 +105,9 @@
                                     <td>Pago</td>
                                 @endif
                                 <td>{{ $data->quantity }}</td>
-                                <td>{{ Str::currency($data->price) }} $</td>
+                                <td>{{ Str::currency($data->price_sell) }} $</td>
                                 <td>
-                                    <p>{{ Str::currency($data->price * $data->quantity) }} $</p>
+                                    <p>{{ Str::currency($data->price_sell * $data->quantity) }} $</p>
                                 </td>
                                 {{ $i++ }}
                             </tr>

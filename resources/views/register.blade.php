@@ -7,7 +7,7 @@
 @section('content')
 
     <h3>Registrar Usuario</h3>
-    <form method="POST" action="{{ route('register.post') }}">
+    <form method="POST" action="{{ route('register.post') }}" enctype="multipart/form-data">
         @csrf
         
         <div class="row pt-3">

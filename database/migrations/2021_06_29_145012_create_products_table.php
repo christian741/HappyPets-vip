@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->integer('quantity');
             $table->integer('total_price');
+            $table->integer('percentaje');
+            $table->integer('price_sell');
             $table->string('photo')->unique();
             $table->unsignedBigInteger('types_products_id');
             $table->foreign('types_products_id')

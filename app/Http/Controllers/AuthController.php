@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Laravel\Passport\HasApiTokens;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +27,8 @@ class AuthController extends Controller
             'lastname' => ['required', 'string'],
             'cellphone' => ['required', 'regex:(^\d{10}$)'],
             'email' => ['required', 'string', 'email', 'unique:users'],
-            'password' => ['required', 'string']
+            'password' => ['required', 'string'],
+            'img_file' => ['mimes:jpeg,jpg,png,gif']
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -38,21 +39,33 @@ class AuthController extends Controller
             return redirect('register')
                 ->withErrors($validator);
         }
+        $nameImage = "";
+        if($request->img_file!=null){
+            $image_resize = Image::make($request->img_file->getRealPath());
+            $image_resize->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $image_resize->orientate();
+            $nameImage = time() . "." . $request->img_file->getClientOriginalName();
+            $image_resize->save(public_path('images/users/' . $nameImage));
+        }else{
+            $nameImage = 'sinfoto.png';
+        }
+        $bool = true;
+       
         $user = User::create([
             'name' => $request->name,
             'lastname' => $request->lastname,
             'cellphone' =>  $request->cellphone,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'photo'=> 'hola.png'
+            'photo' => $nameImage,
+            'estate' => $bool,
         ]);
         $user->roles()->attach(Role::where('name', 'admin')->first());
-    
 
-        return redirect('login')->with('message','Registro exitoso');
-        /*return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);*/
+        return redirect('login')->with('message', 'Registro exitoso');
     }
 
     /**

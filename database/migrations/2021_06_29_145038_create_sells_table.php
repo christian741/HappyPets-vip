@@ -15,6 +15,10 @@ class CreateSellsTable extends Migration
     {
         Schema::create('sells', function (Blueprint $table) {
             $table->id();
+
+            //$table->json('sells_day');
+
+            
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')
             ->references('id')
@@ -24,6 +28,7 @@ class CreateSellsTable extends Migration
             $table->integer('price');
             $table->integer('quantity');
             $table->boolean('debt');
+
             $table->timestamps();
         });
     }

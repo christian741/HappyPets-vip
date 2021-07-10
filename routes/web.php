@@ -4,7 +4,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
-use App\Models\Product;
+use App\Models\TypesProduct;
 use Illuminate\Support\Facades\Route;
 
 
@@ -48,7 +48,12 @@ Route::middleware('auth')->group(function () {
 
     /**Product Controller */
     Route::get('/products', [ProductController::class, 'index'])->name('products');
+    Route::get('/createProducts', function(){
+        $typeProducts = TypesProduct::all();
+        return view('Admin.Products.createProduct', compact('typeProducts'));
+    })->name('createProducts');
     Route::post('registerProducts', [ProductController::class, 'create_Products'])->name('registerProducts.post');
+    /**Pets */
 
     //SellController
     Route::get('/sellsToday', [SellController::class, 'index'])->name('sellsToday');

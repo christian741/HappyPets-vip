@@ -14,23 +14,28 @@
             <input type="text" name="name" placeholder="Digite sus Nombres">
         </div>
         <div class="row pt-3">
-            <label for="description">Descrpcion:</label>
+            <label for="description">Descripcion:</label>
             <input type="text" name="description" placeholder="Digite sus Apellidos">
         </div>
         <div class="row pt-3">
-            <label for="price">Precio:</label>
-            <input type="text" name="price" placeholder="Digite su Celular">
+            <label for="price">Precio Proovedor:</label>
+            <input type="text" name="price" placeholder="Digite el precio">
         </div>
         <div class="row pt-3">
             <label for="quantity">Cantidad:</label>
             <input type="number" name="quantity" placeholder="Digite su Email">
         </div>
         <div class="row pt-3">
+            <label for="percentaje">Porcentaje Ganancia:</label>
+            <input type="number" min="1" max="100" name="percentaje" placeholder="Porcentaje Ganancia">
+        </div>
+        <div class="row pt-3">
             <label for="photo">Foto:</label>
             <input type="file" name="img_file">
         </div>
-        <label for="types">Escge un tipo:</label>
+        <label for="types">Escoge un tipo:</label>
         <select name="typeProducts" id="typeProducts">
+            <option value="selected">Seleccionar tipo de producto:</option>
             @foreach ($typeProducts as $type)
                 <option value="{{ $type->id }}">{{ $type->name }}</option>
             @endforeach

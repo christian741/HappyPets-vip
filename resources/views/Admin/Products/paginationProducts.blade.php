@@ -21,19 +21,25 @@
             <thead>
                 <tr class="table-success">
                     <th scope="col">#</th>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">DOB</th>
+                    <th scope="col">Nombre Producto</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Procentaje</th>
+                    <th scope="col">Precio Venta</th>
+                    <th>Total Precio</th>
                 </tr>
             </thead>
             <tbody>
+                {{$i=1}}
                 @foreach ($products as $data)
                     <tr>
-                        <th scope="row">{{ $data->id }}</th>
+                        <th scope="row">{{ $i++ }}</th>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->description }}</td>
                         <td>{{ $data->quantity }}</td>
+                        <td>{{ Str::currency($data->price) }} $</td>
+                        <td>{{ Str::currency($data->price) }} $</td>
                     </tr>
                 @endforeach
             </tbody>

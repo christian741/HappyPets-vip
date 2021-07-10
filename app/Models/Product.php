@@ -23,6 +23,8 @@ class Product extends Model
         'quantity',
         'total_price',
         'photo',
+        'percentaje',
+        'price_sell',
         'types_products_id'
     ];
 
