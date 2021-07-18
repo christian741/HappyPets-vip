@@ -23,6 +23,7 @@ class AuthController extends Controller
          * Validate the data using validation rules
          */
         $rules = array(
+            'cedula'=> ['required', 'regex:(^\d{9,11}$)'],
             'name' => ['required', 'string'],
             'lastname' => ['required', 'string'],
             'cellphone' => ['required', 'regex:(^\d{10}$)'],
@@ -55,6 +56,7 @@ class AuthController extends Controller
         $bool = true;
        
         $user = User::create([
+            'cedula'=> $request->cedula,
             'name' => $request->name,
             'lastname' => $request->lastname,
             'cellphone' =>  $request->cellphone,

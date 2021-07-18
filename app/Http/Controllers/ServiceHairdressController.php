@@ -26,5 +26,5 @@ class ServiceHairdressController extends Controller
         return view('Admin.Hairdress.createHairPets');
     }
 
-
+    
 }

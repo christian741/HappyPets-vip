@@ -18,6 +18,10 @@
                     <input type="file" name="img_file" >
                 </div>
                 <div class="form-group row">
+                    <label for="cedula">Cédula:</label>
+                    <input class="form-control" type="text" name="cedula" placeholder="Digite sus Nombres">
+                </div>
+                <div class="form-group row">
                     <label for="name">Nombres:</label>
                     <input class="form-control" type="text" name="name" placeholder="Digite sus Nombres">
                 </div>
