@@ -21,8 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTableSeeder::class);
         $this->call(TypesProductsSeeder::class);
-       /* $faker = Faker::create();
-    	foreach (range(1,20) as $index) {
+        $this->call(UserSeeder::class);
+        $faker = Faker::create();
+    	/*foreach (range(1,20) as $index) {
             DB::table('products')->insert([
                 'name' => $faker->firstname,
                 'description' => $faker->lastname,
@@ -32,17 +33,17 @@ class DatabaseSeeder extends Seeder
                 'photo'=>$faker->text,
                 'types_products_id' => $faker->numberBetween($min = 1, $max = 2) ,
             ]);
-        }
-        foreach (range(1,20) as $index) {
+        }*/
+        /*foreach (range(1,20) as $index) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'lastname' => $faker->name,
                 'email'=> $faker->email,
-                'password'=> '123456',
+                'password'=> bcrypt('123456'),
                 'photo'=>$faker->text
             ]);
-        }
-        foreach (range(1,20) as $index) {
+        }*/
+        /*foreach (range(1,20) as $index) {
             DB::table('role_user')->insert([
                 'role_id' => $faker->numberBetween($min = 1, $max = 2),
                 'user_id' => $faker->numberBetween($min = 1, $max = 20),

@@ -14,13 +14,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-       /* $user = new User();
-        $user->name = 'admin';
-        $user->description = 'Administrator';
+        $user = new User();
+        $user->cedula = '1007156489';
+        $user->name = 'Danna';
+        $user->lastname = 'Cardona';
+        $user->email = 'dk1007156489@gmail.com';
+        $user->password = '123456';
+        $user->photo ='sinfoto.png';
         $user->save();
-        $user = new Role();
-        $user->name = 'user';
-        $user->description = 'User';
-        $user->save();*/
     }
 }
