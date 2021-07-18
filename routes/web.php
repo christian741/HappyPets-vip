@@ -4,6 +4,8 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ServiceHairdressController;
+use App\Models\ServiceHairdress;
 use App\Models\TypesProduct;
 use Illuminate\Support\Facades\Route;
 
@@ -53,8 +55,16 @@ Route::middleware('auth')->group(function () {
         return view('Admin.Products.createProduct', compact('typeProducts'));
     })->name('createProducts');
     Route::post('registerProducts', [ProductController::class, 'create_Products'])->name('registerProducts.post');
+    Route::put('editProducts', [ProductController::class, 'edit_Products'])->name('editProducts.put');
+    Route::put('deleteProducts', [ProductController::class, 'delete_Products'])->name('deleteProducts.delete');
     /**Pets */
+    Route::get('/pets', [ServiceHairdressController::class, 'index'])->name('pets');
+    Route::get('/searchPet', [PetCon::class, 'index'])->name('searchPet');
 
+    /**HairAddress */
+    Route::get('/viewService', [ServiceHairdressController::class, 'index'])->name('viewService');
+    Route::get('/createServicesHair', [ServiceHairdressController::class, 'viewCreate'])->name('createServicesHair');
+    Route::post('registerServiceHair', [ProductController::class, 'registerServiceHair'])->name('registerServiceHair.post');
     //SellController
     Route::get('/sellsToday', [SellController::class, 'index'])->name('sellsToday');
     Route::post('registerSells', [SellController::class, 'create_sellsToday'])->name('register.sells');

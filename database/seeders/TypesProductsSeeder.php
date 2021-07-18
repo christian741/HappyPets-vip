@@ -14,11 +14,11 @@ class TypesProductsSeeder extends Seeder
     public function run()
     {
         $typeProduct = new TypesProduct();
-        $typeProduct->name = 'sells';
+        $typeProduct->name = 'Venta';
         $typeProduct->description = 'Ventas';
         $typeProduct->save();
         $typeProduct = new TypesProduct();
-        $typeProduct->name = 'inventory';
+        $typeProduct->name = 'Inventario';
         $typeProduct->description = 'Inventario';
         $typeProduct->save();
 
