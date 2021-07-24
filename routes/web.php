@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         $typeProducts = TypesProduct::all();
         return view('Admin.Products.createProduct', compact('typeProducts'));
     })->name('createProducts');
+    Route::get('getProducts/{id}', );
     Route::post('registerProducts', [ProductController::class, 'create_Products'])->name('registerProducts.post');
     Route::put('editProducts', [ProductController::class, 'edit_Products'])->name('editProducts.put');
     Route::put('deleteProducts', [ProductController::class, 'delete_Products'])->name('deleteProducts.delete');
