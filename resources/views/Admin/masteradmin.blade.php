@@ -61,6 +61,15 @@
             </li>
             <li class="nav-item">
                 <div class="dropdown">
+                    <button class="dropbtn">Clientes</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url('/customers') }}">Ver Clientes</a>
+                        <a href="{{ url('/createCustomer') }}" class="">Crear Cliente</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="dropdown">
                     <button class="dropbtn">Productos</button>
                     <div class="dropdown-content">
                         <a href="{{ url('/products') }}">Ver Productos</a>

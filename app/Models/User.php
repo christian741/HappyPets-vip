@@ -47,6 +47,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function scopeCedula($query, $cedula){
+        if($cedula){
+            return $query->where('cedula','ILIKE',"%$cedula%");
+        }
+    }
+    public function scopeEmail($query, $email){
+        if($email){
+            return $query->where('email','ILIKE',"%$email%");
+        }
+    }
+
+
     /* MANY TO MANY */
     public function roles()
     {

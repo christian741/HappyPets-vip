@@ -13,12 +13,12 @@ class ServiceHairdressController extends Controller
 
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin','superAdmin']);
         return view('Admin.Hairdress.seeServicesHair');
     }
     public function viewCreate(Request $request)
     {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin','superAdmin']);
         return view('Admin.Hairdress.createHairPets');
     }
     public function registerServiceHair(Request $request){

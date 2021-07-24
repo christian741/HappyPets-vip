@@ -6,6 +6,20 @@
 
 @section('content')
 <h1>Crear Mascota</h1>
+<form id="form_search" method="GET" action="{{ route('') }}">
+    @csrf
+    <div class="container">
+        <div class="row">
+            <div class="form-group">
+                <label for="">Busqueda de Dueño</label>
+                <input type="text" name="name_product" placeholder="Busqueda">
+                <button type="submit" class="btn btn-light">
+                    <span class="glyphicon glyphicon-search">Busqueda</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
 <form action="">
     @csrf
     <div>

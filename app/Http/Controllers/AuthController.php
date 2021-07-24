@@ -76,12 +76,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|string|email',
+            'cedula' => 'required|string',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
 
-        $credentials = request(['email', 'password']);
+        $credentials = request(['cedula', 'password']);
 
         if (!Auth::attempt($credentials)) {
             return redirect('register')
@@ -90,7 +90,7 @@ class AuthController extends Controller
         $user = $request->user();
 
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superAdmin') ) {
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
             if ($request->remember_me)

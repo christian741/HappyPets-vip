@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $name  = $request->get('name_product');
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin','superAdmin']);
         $products = Product::orderBy('name', 'ASC')
             ->name($name)
             ->paginate(15);
@@ -30,10 +30,7 @@ class ProductController extends Controller
 
     public function create_Products(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
-        /**
-         * Validate the data using validation rules
-         */
+        $request->user()->authorizeRoles(['admin','superAdmin']);
         $rules = array(
             'name' => ['required', 'string'],
             'price' => ['required', 'numeric'],

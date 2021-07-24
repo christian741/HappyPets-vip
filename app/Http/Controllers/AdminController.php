@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         //$request->user()->authorizeRoles(['user', 'admin']);
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin','superAdmin']);
         return view('Admin.home');
     }
 }

@@ -25,8 +25,8 @@
                     @csrf
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label for="email">Email:</label>
-                            <input class="form-control" type="email" name="email" placeholder="Digite su Email">
+                            <label for="cedula">Cedula:</label>
+                            <input class="form-control" type="text" name="cedula" placeholder="Digite su Cedula">
                         </div>
                     </div>
                     <div class="col-md-12">

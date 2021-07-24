@@ -4,6 +4,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceHairdressController;
 use App\Models\ServiceHairdress;
 use App\Models\TypesProduct;
@@ -68,4 +69,15 @@ Route::middleware('auth')->group(function () {
     //SellController
     Route::get('/sellsToday', [SellController::class, 'index'])->name('sellsToday');
     Route::post('registerSells', [SellController::class, 'create_sellsToday'])->name('register.sells');
+
+    //Customers
+    Route::get('/customers', [UserController::class, 'getAllUser'])->name('customers');
+    Route::get('/createCustomer', function(){
+        return view('Admin.Customers.createCustomers');
+    })->name('createCustomer');
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::get('/editCustomers', [UserController::class, 'getAllUser'])->name('customers');
+    Route::get('/createCustomer', function(){
+        return view('Admin.Customers.createCustomers');
+    })->name('createCustomer');
 });

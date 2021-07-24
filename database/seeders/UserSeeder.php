@@ -19,8 +19,18 @@ class UserSeeder extends Seeder
         $user->name = 'Danna';
         $user->lastname = 'Cardona';
         $user->email = 'dk1007156489@gmail.com';
-        $user->password = '123456';
+        $user->password = bcrypt('123456');
         $user->photo ='sinfoto.png';
+        $user->estate = true;
+        $user->save();
+        $user = new User();
+        $user->cedula = '1073179018';
+        $user->name = 'Christian';
+        $user->lastname = 'Diaz';
+        $user->email = 'christian.xd.417@gmail.com';
+        $user->password = bcrypt('123456');
+        $user->photo ='sinfoto.png';
+        $user->estate = true;
         $user->save();
     }
 }

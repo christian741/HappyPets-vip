@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class PetController extends Controller
 {
     public function __construct()
     {
