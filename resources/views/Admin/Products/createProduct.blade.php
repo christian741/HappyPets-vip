@@ -15,31 +15,31 @@
             <div class="container justify-content-center">
                 <div class="row pt-3">
                     <label for="photo">Foto:</label>
-                    <input type="file" name="img_file">
+                    <input type="file" class="form-control" name="img_file">
                 </div>
                 <div class="row pt-3">
-                    <label for="name">Nombre:</label>
-                    <input type="text" name="name" placeholder="Digite sus Nombres">
+                    <label for="name">Nombre Producto:</label>
+                    <input type="text" class="form-control" name="name" placeholder="Digite Nombre Producto">
                 </div>
                 <div class="row pt-3">
                     <label for="description">Descripcion:</label>
-                    <input type="text" name="description" placeholder="Digite sus Apellidos">
+                    <input type="text" class="form-control" name="description" placeholder="Digite la Descripción">
                 </div>
                 <div class="row pt-3">
                     <label for="price">Precio Proovedor:</label>
-                    <input type="text" name="price" placeholder="Digite el precio">
+                    <input type="text" class="form-control" name="price" placeholder="Digite el Precio Proovedor" value="">
                 </div>
                 <div class="row pt-3">
                     <label for="quantity">Cantidad:</label>
-                    <input type="number" name="quantity" placeholder="Digite su Email">
+                    <input type="number" class="form-control" name="quantity" placeholder="Digite la Cantidad">
                 </div>
                 <div class="row pt-3">
-                    <label for="percentaje">Porcentaje Ganancia:</label>
-                    <input type="number" min="1" max="100" name="percentaje" placeholder="Porcentaje Ganancia">
+                    <label for="percentaje">Porcentaje Ganancia 1% a 100%:</label>
+                    <input type="number" class="form-control" min="1" max="100" name="percentaje" placeholder="Porcentaje Ganancia">
                 </div>
                 <label for="types">Escoge un tipo:</label>
-                <select name="typeProducts" id="typeProducts">
-                    <option value="selected">Seleccionar tipo de producto:</option>
+                <select name="typeProducts" class="form-control" id="typeProducts">
+                    <option  value="selected">Seleccionar tipo de producto:</option>
                     @foreach ($typeProducts as $type)
                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                     @endforeach

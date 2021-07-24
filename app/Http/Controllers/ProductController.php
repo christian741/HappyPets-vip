@@ -35,6 +35,7 @@ class ProductController extends Controller
             'name' => ['required', 'string'],
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'numeric'],
+            'percentaje' => ['required','numeric','min:1','max:100'],
             'typeProducts' => ['required'],
             'img_file' => ['mimes:jpeg,jpg,png,gif']
         );
@@ -54,6 +55,8 @@ class ProductController extends Controller
             $image_resize->orientate();
             $nameImage = time() . "." . $request->img_file->getClientOriginalName();
             $image_resize->save(public_path('images/products/' . $nameImage));
+        }else{
+            $nameImage = 'sinfoto.png';
         }
         $total_price= $request->price * $request->quantity;
         $price_sell = ($request->price*($request->percentaje/100))+($request->price);
@@ -66,7 +69,7 @@ class ProductController extends Controller
             'total_price'=>  $total_price,
             'percentaje'=>$request->percentaje,
             'price_sell'=>$price_sell,
-            'photo'=>'sinfoto',
+            'photo'=> $nameImage,
             'types_products_id'=> $request->typeProducts
         ]);
         return redirect('/createProducts')->with('message', 'Registro exitoso');

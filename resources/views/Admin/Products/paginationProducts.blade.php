@@ -51,7 +51,7 @@
                         <td>{{ Str::currency($data->price_sell) }} $</td>
                         <td>{{ Str::currency($data->total_price) }} $</td>
                         <td>
-                            <form method="GET" action="{{ route('seeProduct.get') }}">
+                            <form method="GET" action="">
                                 <input type="hidden" name="id" value="{{$data->id}}">
                                 <input type="submit" name="btn-registrar" class="btn btn-info"  value="Ver" />
                             </form>
