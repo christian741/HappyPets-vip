@@ -35,7 +35,8 @@
                     <th scope="col">Procentaje Ganancia</th>
                     <th scope="col">Precio Venta</th>
                     <th>Total Precio</th>
-                    <th></th>
+                    <th>Ganancia</th>
+                    <th>Ver</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,10 +50,10 @@
                         <td>{{ Str::currency($data->price) }} $</td>
                         <td>{{ $data->percentaje }} %</td>
                         <td>{{ Str::currency($data->price_sell) }} $</td>
-                        <td>{{ Str::currency($data->total_price) }} $</td>
+                        <td>{{ Str::currency($data->total_price_proovedor) }} $</td>
+                        <td>{{ Str::currency($data->ganancy) }} $</td>
                         <td>
-                            <form method="GET" action="">
-                                <input type="hidden" name="id" value="{{$data->id}}">
+                            <form method="GET" action="{{ route('products.getProducts', ['id' => $data->id]) }}">
                                 <input type="submit" name="btn-registrar" class="btn btn-info"  value="Ver" />
                             </form>
                         </td>

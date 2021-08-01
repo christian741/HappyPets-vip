@@ -55,10 +55,11 @@ Route::middleware('auth')->group(function () {
         $typeProducts = TypesProduct::all();
         return view('Admin.Products.createProduct', compact('typeProducts'));
     })->name('createProducts');
-    Route::get('getProducts/{id}', );
+    Route::get('getProducts/{id}', [ProductController::class, 'show'])->name('products.getProducts');
+    Route::get('editProducts/{id}', [ProductController::class, 'edit'])->name('products.editProducts');
     Route::post('registerProducts', [ProductController::class, 'create_Products'])->name('registerProducts.post');
-    Route::put('editProducts', [ProductController::class, 'edit_Products'])->name('editProducts.put');
-    Route::put('deleteProducts', [ProductController::class, 'delete_Products'])->name('deleteProducts.delete');
+    Route::put('updateProduct/{id}', [ProductController::class, 'edit_Products'])->name('updateProduct.put');
+    Route::delete('deleteProducts', [ProductController::class, 'delete_Products'])->name('deleteProducts.delete');
     /**Pets */
     Route::get('/pets', [ServiceHairdressController::class, 'index'])->name('pets');
     Route::get('/searchPet', [PetCon::class, 'index'])->name('searchPet');

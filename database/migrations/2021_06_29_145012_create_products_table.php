@@ -19,10 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('description')->nullable();
             $table->integer('price');
             $table->integer('quantity');
-            $table->integer('total_price');
             $table->integer('percentaje');
             $table->integer('price_sell');
-            $table->string('photo');
+            $table->integer('ganancy');
+            $table->integer('total_price_proovedor');
+            $table->string('photo')->nullable();
             $table->unsignedBigInteger('types_products_id');
             $table->foreign('types_products_id')
                 ->references('id')
