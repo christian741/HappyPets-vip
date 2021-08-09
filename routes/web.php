@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceHairdressController;
+use App\Http\Controllers\PetController;
 use App\Models\ServiceHairdress;
 use App\Models\TypesProduct;
 use Illuminate\Support\Facades\Route;
@@ -62,8 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('deleteProducts', [ProductController::class, 'delete_Products'])->name('deleteProducts.delete');
     /**Pets */
     Route::get('/pets', [ServiceHairdressController::class, 'index'])->name('pets');
-    Route::get('/searchPet', [PetCon::class, 'index'])->name('searchPet');
-
+    Route::get('/searchPet', [PetController::class, 'index'])->name('searchPet');
+    Route::get('/createPets', [PetController::class, 'createPets'])->name('pets.getPets');
     /**HairAddress */
     Route::get('/viewService', [ServiceHairdressController::class, 'index'])->name('viewService');
     Route::get('/createServicesHair', [ServiceHairdressController::class, 'viewCreate'])->name('createServicesHair');

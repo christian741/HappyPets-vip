@@ -16,9 +16,16 @@ class Pet extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'photo'
+        'namepet',
+        'cellphone',
+        'raza',
+        'age',
+        'genere',
+        'address',
+        'observations',
+        'vacunes',
+        'desparasitation',
+        'esterilization'
     ];
     
     public function scopeName($query, $name){

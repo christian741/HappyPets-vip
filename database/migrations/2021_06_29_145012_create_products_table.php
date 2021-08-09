@@ -20,9 +20,9 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->integer('quantity');
             $table->integer('percentaje');
-            $table->integer('price_sell');
-            $table->integer('ganancy');
-            $table->integer('total_price_proovedor');
+            $table->double('price_sell');
+            $table->double('ganancy');
+            $table->double('total_price_proovedor');
             $table->string('photo')->nullable();
             $table->unsignedBigInteger('types_products_id');
             $table->foreign('types_products_id')

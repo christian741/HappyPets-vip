@@ -38,8 +38,8 @@
                     <input type="number" class="form-control" name="quantity" placeholder="Digite la Cantidad">
                 </div>
                 <div class="row pt-3">
-                    <label for="percentaje">Porcentaje Ganancia 1% a 100%:</label>
-                    <input type="number" class="form-control" min="1" max="100" name="percentaje"
+                    <label for="percentaje">Porcentaje Ganancia 1% a 200%:</label>
+                    <input type="number" class="form-control" min="1" max="200" name="percentaje"
                         placeholder="Porcentaje Ganancia">
                 </div>
                 <label for="types">Escoge un tipo:</label>
