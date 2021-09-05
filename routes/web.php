@@ -40,7 +40,7 @@ Route::get('register', [AuthController::class, 'indexRegister'])->name('register
 
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
 Route::post('register', [AuthController::class, 'signUp'])->name('register.post');
-
+ 
 
 
 /**Route for middleware Group */
@@ -61,10 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::post('registerProducts', [ProductController::class, 'create_Products'])->name('registerProducts.post');
     Route::put('updateProduct/{id}', [ProductController::class, 'edit_Products'])->name('updateProduct.put');
     Route::delete('deleteProducts', [ProductController::class, 'delete_Products'])->name('deleteProducts.delete');
-    /**Pets */
-    Route::get('/pets', [ServiceHairdressController::class, 'index'])->name('pets');
-    Route::get('/searchPet', [PetController::class, 'index'])->name('searchPet');
-    Route::get('/createPets', [PetController::class, 'createPets'])->name('pets.getPets');
+   
     /**HairAddress */
     Route::get('/viewService', [ServiceHairdressController::class, 'index'])->name('viewService');
     Route::get('/createServicesHair', [ServiceHairdressController::class, 'viewCreate'])->name('createServicesHair');
@@ -72,7 +69,10 @@ Route::middleware('auth')->group(function () {
     //SellController
     Route::get('/sellsToday', [SellController::class, 'index'])->name('sellsToday');
     Route::post('registerSells', [SellController::class, 'create_sellsToday'])->name('register.sells');
-
+    /**Pets */
+    Route::get('/pets', [ServiceHairdressController::class, 'index'])->name('pets');    
+    Route::get('/createPets', [PetController::class, 'index'])->name('createPets.get');
+    Route::get('/searchPets', [PetController::class, 'createPets'])->name('pets.getPets');
     //Customers
     Route::get('/customers', [UserController::class, 'getAllUser'])->name('customers');
     Route::get('/createCustomer', function(){

@@ -15,6 +15,8 @@ class CreateNotesAdviceTable extends Migration
     {
         Schema::create('notes_advice', function (Blueprint $table) {
             $table->id();
+            $table->string('key_word');
+            $table->string('description');
             $table->timestamps();
         });
     }

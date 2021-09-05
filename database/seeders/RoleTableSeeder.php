@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 
 use App\Models\Role;
+use App\Models\RoleUser;
 use Illuminate\Database\Seeder;
 
 class RoleTableSeeder extends Seeder
@@ -34,6 +35,16 @@ class RoleTableSeeder extends Seeder
         $role = new Role();
         $role->name = 'customer';
         $role->description = 'Cliente';
+        $role->save();
+
+        $role = new RoleUser();
+        $role->role_id = 1;
+        $role->user_id = 1;
+        $role->save();
+
+        $role = new RoleUser();
+        $role->role_id = 1;
+        $role->user_id = 2;
         $role->save();
     }
 }

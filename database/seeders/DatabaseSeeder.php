@@ -19,10 +19,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RoleTableSeeder::class);
+       
         $this->call(TypesProductsSeeder::class);
         $this->call(UserSeeder::class);
-        $faker = Faker::create();
+        $this->call(PetSeeder::class);
+        $this->call(RoleTableSeeder::class);
+        //$faker = Faker::create();
     	/*foreach (range(1,20) as $index) {
             DB::table('products')->insert([
                 'name' => $faker->firstname,

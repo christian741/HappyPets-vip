@@ -19,80 +19,87 @@ class SellController extends Controller
      */
     public function index(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
+        $arrayNames = [];
+        $request->user()->authorizeRoles(['admin','superAdmin']);
         $name  = $request->get('name_product');
         $now = (new \DateTime)->format('Y-m-d');
         $sells = Sell::whereDate('created_at', $now)->get();
         $totalPrice  = 0;
-        foreach($sells as $sell){
-            $totalPrice = $totalPrice + ($sell->price*$sell->quantity);
+        if($sells!=null){
+            foreach($sells as $sell){
+                $totalPrice = $totalPrice + ($sell->price*$sell->quantity);
+                array_push($arrayNames,$this->getProductToday($sell));
+            }
         }
         $products = Product::orderBy('name', 'ASC')
-            ->name($name)
+            ->name($name)->where('types_products_id',1)
             ->paginate(4);
-        return view('Admin.Sells.sellsToday', compact('products', 'sells','totalPrice'));
+        return view('Admin.Sells.sellsToday', compact('products', 'sells','totalPrice','arrayNames'));
     }
 
-    private function saveMultiplesSells($checks_ids,$checks_paids, $checks_precies, $checks_obvservations)
+    private function createSell($object)
     {
-        $arrDebt = [];
-        $arrPrice = [];
-        $arrObvs = [];
-        foreach ($checks_paids as $key => $n) {
-            if($checks_paids[$key]!="selection"){
-                if($checks_paids[$key]=="true"){
-                    array_push($arrDebt,true);
-                }else{
-                    array_push($arrDebt,false);
-                }
-               
-            }
+        $product = Product::find($object->id);
+        if($object->typePaid=="true"){
+            $priceDebt = $object->priceDebt;
+        }else{
+            $priceDebt = 0;
         }
-        foreach ($checks_precies as $key => $n) {
-            if($checks_precies[$key]!=null){
-                array_push($arrPrice,$checks_precies[$key]);
-            }
-        }
-        foreach ($checks_obvservations as $key => $n) {
-            if($checks_obvservations[$key]!=null){
-                array_push($arrObvs,$checks_obvservations[$key]);
-            }
-        }
-        foreach ($checks_ids as $key => $n) {
-            $product = Product::find($checks_ids[$key]);
-            $arrChecks = Sell::create([
-                "product_id" => $checks_ids[$key],
-                "observation" => $arrObvs[$key],
-                "price" => $product->price,
-                "quantity" => $arrPrice[$key],
-                "debt" => $arrDebt[$key],
+         
+        if($object->sell!=null)
+        {  
+            Sell::create([
+                "product_id" => $object->id,
+                "observation" => $object->observation,
+                "price" => $object->sell,
+                'price_debt' => $priceDebt,
+                "quantity" => $object->quantity,
+                'typePaid' => $object->typePaid,
+                "debt" => $object->debt,
+            ]);
+        }else{
+            Sell::create([
+                "product_id" => $object->id,
+                "observation" => $object->observation,
+                "price" => $object->sell_db,
+                'price_debt' => $priceDebt,
+                "quantity" => $object->quantity,
+                'typePaid' => $object->typePaid,
+                "debt" => $object->debt,
             ]);
         }
     }
 
+    private function getProductToday($sell){
+        $product = Product::find($sell->product_id);
+        return $product->name;
+    }
+
     public function create_sellsToday(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
-
-        $rules = array(
-            'name' => ['required', 'string'],
-            'price' => ['required', 'numeric'],
-            'quantity' => ['required', 'numeric'],
-            'typeProducts' => ['required'],
-        );
+        $request->user()->authorizeRoles(['admin','superAdmin']);
+        if($request->sell!=null)
+        {   
+            $rules = array(
+                'sell'=>['required','min:100'],
+                'quantity' => ['required'],
+                'typePaid' => ['required'],
+                'debt' => ['required'],
+            );
+        }else{
+            $rules = array(
+                'quantity' => ['required'],
+                'typePaid' => ['required'],
+                'debt' => ['required'],
+            );
+        }
         $validator = Validator::make($request->all(), $rules);
-        $checks_ids = $request->products;
-        $checks_paids = $request->debt;
-        $checks_precies = $request->prices;
-        $checks_obvservations = $request->observation;
-
-        $this->saveMultiplesSells($checks_ids,$checks_paids, $checks_precies, $checks_obvservations);
-
+        $this->createSell($request);
         $name  = $request->get('name_product');
         $now = (new \DateTime)->format('Y-m-d');
         $sells = Sell::whereDate('created_at', $now)->get();
         $products = Product::orderBy('id', 'DESC')
-            ->name($name)
+            ->name($name)->where('types_products_id',1)
             ->paginate(4);
         return redirect('sellsToday');
     }

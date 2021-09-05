@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role_User extends Model
+class RoleUser extends Model
 {
+    protected $table = 'role_user';
     use HasFactory;
     public function users()
     {

@@ -75,14 +75,12 @@ class UserController extends Controller
     {
         $cedula  = $request->get('cedula_customer');
         $relacionEloquent = 'customer';
-       
-        $customers = DB::select('select * from users INNER JOIN role_user on users.id = role_user.user_id AND role_user.role_id = 5 ');
-        $customers = User::wherehas(['roles', function ($query){
-            $query->where('role_user.role_id','=','5');
-        }]);
-        $customers = $customers->paginate(10);
-        
-        /**/
+        $role = 5;
+        $customers =  User::whereHas('roles', function ($query) {
+            $query->whereIn('role_id', ['5'] );
+        })
+        ->with('roles')
+        ->paginate(10);      
         return view('Admin.Customers.paginationCustomers', compact('customers'));
     }
     public function getUserId(Request $request)

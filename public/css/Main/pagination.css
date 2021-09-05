@@ -1,0 +1,15 @@
+/*.pagination-grid{
+    display: grid;
+}
+.pagination-grid nav{
+    display: grid;
+    grid-template-rows: 2fr;
+}
+.pagination-grid nav div:nth-child(1n){
+    display: none;
+    grid-template-rows: 2fr;
+}
+.pagination-grid nav div:nth-child(2n){
+    display: grid;
+    grid-template-rows: 2fr;
+}*/

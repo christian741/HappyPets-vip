@@ -36,12 +36,11 @@ class ProductController extends Controller
             'name' => ['required', 'string'],
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'numeric'],
-            'percentaje' => ['required','numeric','min:1','max:100'],
+            'percentaje' => ['required','numeric','min:1','max:200'],
             'typeProducts' => ['required'],
             'img_file' => ['mimes:jpeg,jpg,png,gif']
         );
         $validator = Validator::make($request->all(), $rules);
-
         if ($validator->fails()) {
             return redirect('/createProducts')
                 ->withErrors($validator);

@@ -17,8 +17,11 @@ class Sell extends Model
         'product_id',
         'observation',
         'price',
+        'price_debt',
         'quantity',
-        'debt'
+        'debt',
+        'typePaid'
+       
     ];
     public function products()
     {
